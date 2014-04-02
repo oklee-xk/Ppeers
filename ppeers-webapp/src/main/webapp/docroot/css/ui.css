@@ -1,0 +1,86 @@
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+/*For Desktops*/
+@media all and (min-width : 621px) {
+    /*All height animateTransform 100*/
+    .workspace,
+    .workspace .ui-grid-a,
+    .workspace .ui-grid-a #chat-area,
+    .workspace .ui-grid-a #users-list {
+        height: 100%;
+    }
+
+    section.workspace .ui-grid-a #chat-area {
+        width: 74.95%;
+        float: right;
+    }
+
+    section.workspace .ui-grid-a #users-list {
+        border-left: #111111 solid;
+        font-size: 35px;
+        width: 24.95%;
+        float: right;
+    }
+
+    .camera {
+        background: #000000;
+        float: left;
+    }
+
+    #chat-area {
+        position: relative;
+    }
+}
+
+/*For small screens*/
+@media all and (max-width : 620px) {
+    section.workspace .ui-grid-a #chat-area,
+    section.workspace .ui-grid-a #users-list {
+        width: 100%;
+        float: none;
+    }
+
+    section.workspace .ui-grid-a #users-list {
+        border-bottom: #111111 solid;
+    }
+
+    section.workspace .ui-grid-a #users-list ul {
+        margin: 0;
+    }
+}
+
+section.workspace {
+    z-index: 0;
+}
+
+#chat-window {
+    margin: 8px;
+    padding: 8px;
+}
+
+#chat-area #chat-message {
+    margin: 8px;
+    width: 100%;
+    bottom: 0;
+}
+
+#chat-area #message-field {
+    float: left;
+}
+
+#chat-area #send-message-button {
+    float: left;
+    margin-left: 8px;
+}
+
+#chat-area #send-message-button > .ui-btn {
+    min-width: 100%;
+    padding: 7px;
+    margin: 0;
+}
+
+#chat-area #message-field > .ui-input-text {
+    margin: 0px;
+}
