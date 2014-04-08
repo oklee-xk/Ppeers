@@ -25,4 +25,17 @@
     </dependency>
   -->
   </dependencies>
+
+  <servlets>
+
+    <servlet>
+      <name>Signaler</name>
+      <class>com.sgames.Signaler</class>
+      <comment>Websoket class for the signal.</comment>
+      <mappings>
+        <mapping>/signaler</mapping>
+      </mappings>
+    </servlet>
+
+  </servlets>
 </module>
