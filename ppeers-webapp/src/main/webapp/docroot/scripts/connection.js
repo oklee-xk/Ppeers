@@ -22,39 +22,50 @@
             audio: false,
             video: true
         };
+        c.bandwidth = {
+            audio: 50,
+            video: 256
+        };
 
         c.onstream = function(e) {
             room.openCam(e);
         };
 
         //overriding "openSignalingChannel" method
-        c.openSignalingChannel = function(config) {
-            var channel = config.channel || this.channel;
-            channels[channel] = config;
+        c.openSignalingChannel = openSignalingChannel;
 
-            if (config.onopen) setTimeout(config.onopen, 1000);
+        c.onNewSession = onNewSession;
 
-            return {
-                send: function (message) {
-                    webSocket.send(JSON.stringify({
-                        sender: currentUserUUID,
-                        channel: channel,
-                        message: message
-                    }));
-                },
-                channel: channel
-            };
+        c.onleave = onLeave;
+    };
+
+    var onNewSession = function(session) {
+        console.log("onNewSession session", session);
+        c.join(session);
+    };
+
+    //send the message
+    var openSignalingChannel = function(config) {
+        console.log("openSignalingChannel");
+        var channel = config.channel || this.channel;
+        channels[channel] = config;
+
+        //if (config.onopen) setTimeout(config.onopen, 1000);
+
+        return {
+            send: function (message) {
+                webSocket.send(JSON.stringify({
+                    sender: currentUserUUID,
+                    channel: channel,
+                    message: message
+                }));
+            },
+            channel: channel
         };
     };
 
-    var initWebSocket = function (url) {
-        var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
-        webSocket = new WS(url);
-
-        webSocket.onmessage = getMessage;
-    };
-
-    var getMessage = function(e) {
+    //receive the message
+    var onMessage = function(e) {
         var data = JSON.parse(e.data);
 
         if (data.sender == currentUserUUID) {
@@ -67,6 +78,17 @@
         }
     };
 
+    var onLeave = function(e) {
+        console.log("onLeave ");
+    };
+
+    var initWebSocket = function (url) {
+        var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket
+        webSocket = new WS(url);
+
+        webSocket.onmessage = onMessage;
+    };
+
     connection.getConnection = function() {
         return c;
     };
@@ -75,6 +97,7 @@
         return webSocket;
     };
 
+    //Starting connection
     connection.init = function() {
         //custom signaler using web socket.
         initWebSocket(URL);

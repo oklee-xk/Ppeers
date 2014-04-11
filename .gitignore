@@ -1,0 +1,19 @@
+# Git Configuration
+
+#Ignored Folders
+
+.settings
+saulemendez-webapp
+target
+
+#Ignored Files
+
+.DS_Store
+.classpath
+.project
+.idea
+*.iml
+*.ipr
+*.iws
+*.log
+nb-configuration.xml
