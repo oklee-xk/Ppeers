@@ -6,6 +6,7 @@
  * connection.js manage how many users and this things.
  */
 (function(room, $) {
+    var userList = $("section.workspace #users-list");
     var camIndex;
     var cams = [];
     room.ele = [];
@@ -30,10 +31,37 @@
         return cam;
     };
 
+    var createNewUser = function(name, id) {
+        var list = $("ul", userList);
+        var listItem = $('<li />');
+        var button = $('<div />');
+
+        //but the button and the name
+        button.text(name);
+        listItem.attr("id", id);
+
+        listItem.append(button);
+        list.append(listItem);
+
+        return listItem;
+    };
+
     var initPanel = function () {
-        var userList = $("section.workspace #users-list");
+        //restart user list
         //responsive typo
         userList.flowtype({ fontRatio : 12 });
+    };
+
+    var userAlreadyExists = function(id) {
+        return userList.find("#" + id).length > 0;
+    };
+
+    room.newUser = function(session) {
+        //validate if the user already exists.
+        if (userAlreadyExists(session.userid)) return;
+
+        var user = createNewUser(session.userid, session.userid);
+        user.click({session: session}, connection.join);
     };
 
     room.openCam = function(streamObj) {

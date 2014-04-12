@@ -41,7 +41,13 @@
 
     var onNewSession = function(session) {
         console.log("onNewSession session", session);
-        c.join(session);
+
+        if (!window.sessions) window.sessions = { };
+        window.sessions[session.userid] = session;
+
+        room.newUser(session);
+
+        //c.join(session);
     };
 
     //send the message
@@ -87,6 +93,11 @@
         webSocket = new WS(url);
 
         webSocket.onmessage = onMessage;
+    };
+
+    connection.join = function(e) {
+        console.log("connection join", e.data.session.userid);
+        c.join(e.data.session);
     };
 
     connection.getConnection = function() {
