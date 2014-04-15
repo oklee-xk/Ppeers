@@ -4,6 +4,7 @@
  * The chat, the list of users if someone kick other
  * etc.
  */
+//TODO  var socketConfig.onopen do not enter, and I dont know why
 (function(connection, $) {
     var currentUserUUID = Math.round(Math.random() * 60535) + 5000;
     var URL = "ws://" + location.host + "/signaler";
@@ -56,7 +57,7 @@
         var channel = config.channel || this.channel;
         channels[channel] = config;
 
-        //if (config.onopen) setTimeout(config.onopen, 1000);
+        if (config.onopen) setTimeout(config.onopen, 1000);
 
         return {
             send: function (message) {

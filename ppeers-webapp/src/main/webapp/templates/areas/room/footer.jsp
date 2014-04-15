@@ -5,7 +5,7 @@
     <script src="${docrootPath}/scripts/jquery.mobile-1.4.2.js" ></script>
     <script src="${docrootPath}/scripts/jquery.ui.touch-punch.js" ></script>
 
-    <%--<script src="//www.webrtc-experiment.com/firebase.js"></script>--%>
+    <%--<script src="${docrootPath}/scripts/firebase.js"></script>--%>
     <script src="${docrootPath}/scripts/RTCMultiConnection-v1.7.js"> </script>
     <script src="${docrootPath}/scripts/getMediaElement-v1.2.js" ></script>
     <script src="${docrootPath}/scripts/connection.js" ></script>
